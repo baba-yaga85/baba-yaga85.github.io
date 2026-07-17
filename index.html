@@ -1,529 +1,59 @@
-<!doctype html>
-<html lang="it">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stefano Marrone — Mathematician</title>
-<meta name="description" content="Stefano Marrone — Bachelor's student in Mathematics, Università Federico II di Napoli & Scuola Superiore Meridionale.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --maroon:#e2001a;
-    --maroon-dark:#7a000f;
-    --paper:#f6f0e3;
-    --paper-dim:#efe4cd;
-    --ink:#241f1a;
-    --ink-soft:#5a5147;
-    --gold:#a9814a;
-    --line:#ddcda9;
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,.display{
-    font-family:'EB Garamond', serif;
-    font-weight:600;
-    letter-spacing:0.01em;
-  }
-  a{color:inherit;}
-
-  /* ---------- fixed section index, echoes the "N/18 · Section ••◦◦◦◦" footer of the thesis slides ---------- */
-  .tracker{
-    position:fixed;
-    top:0; left:0; right:0;
-    z-index:50;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:14px 28px;
-    font-size:12px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    background:rgba(246,240,227,0.86);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
-  .tracker .logo{ display:flex; align-items:center; color:var(--maroon); }
-  .tracker .logo svg{ width:22px; height:22px; display:block; }
-
-  .tracker-progress{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:6px;
-  }
-  .tracker-progress .caption{
-    font-family:'EB Garamond',serif;
-    font-style:italic;
-    text-transform:none;
-    letter-spacing:0;
-    font-size:13px;
-    color:var(--ink-soft);
-  }
-  .tracker-progress .bullets{ display:flex; gap:5px; }
-  .tracker-progress .bullets i{
-    width:6px; height:6px;
-    border-radius:50%;
-    background:var(--line);
-    display:inline-block;
-    cursor:pointer;
-    transition:background .3s;
-  }
-  .tracker-progress .bullets i.filled{ background:var(--maroon); }
-
-  section{
-    max-width:760px;
-    margin:0 auto;
-    padding:120px 28px 40px;
-  }
-  section + section{ padding-top:96px; }
-
-  /* ---------- hero ---------- */
-  .hero{
-    background:linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
-    color:var(--paper);
-    max-width:none;
-    padding:170px 28px 90px;
-    position:relative;
-  }
-  .hero-inner{
-    max-width:900px;
-    margin:0 auto;
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:40px;
-  }
-  .hero-text{ max-width:460px; flex-shrink:0; }
-  @media (max-width:900px){
-    .hero-inner{ flex-direction:column; text-align:left; }
-  }
-  .hero .affil{ margin:0 0 20px; }
-  .hero .affil-line{ margin:0 0 3px; line-height:1.3; }
-  .hero .affil-line .what{
-    font-family:'Inter',sans-serif;
-    font-size:12px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:#e7c9a9;
-  }
-  .hero .affil-line .where{
-    font-family:'EB Garamond',serif;
-    font-style:italic;
-    font-size:17px;
-    color:#f6ecdc;
-    margin-left:8px;
-  }
-  .hero h1{
-    font-size:clamp(40px,7vw,64px);
-    margin:0 0 6px;
-    line-height:1.05;
-  }
-  .hero .role{
-    font-family:'EB Garamond',serif;
-    font-style:italic;
-    font-size:clamp(20px,3vw,26px);
-    color:#f1e2cf;
-    margin:0 0 30px;
-  }
-  .hero p.lede{
-    font-size:16px;
-    line-height:1.7;
-    max-width:52ch;
-    color:#efe1cd;
-  }
-  .hero .cta-row{
-    margin-top:36px;
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-  .hero .cta{
-    display:inline-block;
-    padding:11px 20px;
-    border:1px solid #e7c9a9;
-    border-radius:2px;
-    font-size:13px;
-    letter-spacing:0.06em;
-    text-decoration:none;
-    color:var(--paper);
-    transition:background .2s, color .2s;
-  }
-  .hero .cta.solid{ background:var(--paper); color:var(--maroon-dark); border-color:var(--paper); }
-  .hero .cta:hover{ background:#e7c9a9; color:var(--maroon-dark); }
-
-  /* signature: subobject classifier pullback square, drawn from the thesis itself */
-  .diagram-col{
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:320px;
-  }
-  .diagram-col svg{ width:100%; height:auto; }
-  .diagram-col svg text{ font-family:'EB Garamond',serif; font-style:italic; }
-  @media (max-width:900px){
-    .diagram-col{ width:260px; margin-top:20px; align-self:center; }
-  }
-  /* diagram stays pinned in place, dissolving in as the page scrolls beneath it */
-  @media (min-width:901px){
-    .diagram-col{
-      position:fixed;
-      top:50%;
-      right:max(28px, calc((100vw - 900px)/2 + 8px));
-      transform:translateY(-50%);
-      opacity:0;
-      transition:opacity .12s linear;
-      z-index:3;
-      pointer-events:none;
-    }
-  }
-  @media (min-width:901px) and (prefers-reduced-motion:reduce){
-    .diagram-col{ position:static; top:auto; right:auto; transform:none; opacity:1; }
-  }
-
-  /* ---------- section chrome ---------- */
-  .kicker{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    margin-bottom:34px;
-  }
-  .kicker .arrow{ flex-shrink:0; display:block; }
-  .kicker .arrow line{ stroke:var(--maroon); stroke-width:2; }
-  .kicker h2{
-    font-size:28px;
-    margin:0;
-  }
-  .kicker::after{
-    content:"";
-    flex:1;
-    height:1px;
-    background:var(--line);
-    margin-left:6px;
-  }
-
-  .prose p{ line-height:1.75; color:var(--ink-soft); font-size:16px; }
-  .prose strong{ color:var(--ink); font-weight:600; }
-
-  /* timeline-ish list, styled like the categorical diagrams: node -> node */
-  .entries{ list-style:none; margin:0; padding:0; }
-  .entries li{
-    display:grid;
-    grid-template-columns:120px 1fr;
-    gap:18px;
-    padding:16px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .entries li:last-child{ border-bottom:none; }
-  .entries .when{
-    font-family:'EB Garamond',serif;
-    font-style:italic;
-    color:var(--maroon);
-    font-size:14px;
-    white-space:nowrap;
-  }
-  .entries .what h3{ margin:0 0 4px; font-size:18px; font-weight:600; }
-  .entries .what p{ margin:0; color:var(--ink-soft); font-size:14.5px; line-height:1.6; }
-  .entries .what p.detail{ margin-top:6px; font-size:12.5px; line-height:1.5; }
-  .entries .what p.detail .label{
-    font-family:'EB Garamond',serif;
-    font-style:italic;
-    color:var(--gold);
-    margin-right:5px;
-  }
-
-  .grid-two{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-  }
-  @media (max-width:640px){ .grid-two{ grid-template-columns:1fr; } }
-
-  .taglist{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-  .taglist span{
-    font-size:12.5px;
-    padding:6px 12px;
-    border:1px solid var(--line);
-    border-radius:2px;
-    color:var(--ink-soft);
-    background:var(--paper-dim);
-  }
-
-  .lang-row{ display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px dashed var(--line); font-size:14.5px; }
-  .lang-row:last-child{ border-bottom:none; }
-  .lang-row .lvl{ color:var(--gold); font-family:'EB Garamond',serif; font-style:italic; }
-
-  footer{
-    max-width:760px;
-    margin:0 auto;
-    padding:20px 28px 80px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    color:var(--ink-soft);
-    font-size:12.5px;
-    letter-spacing:0.04em;
-  }
-
-  .fade-in{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
-  .fade-in.in{ opacity:1; transform:translateY(0); }
-
-  ::selection{ background:var(--gold); color:#fff; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fix FLAC audio playback issues on your FiiO SNOWSKY ECHO Mini by adjusting block sizes. Simple download and conversion tool.">
+    <title>FLAC-Block-Size-Converter</title>
 </head>
-<body>
+<body style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px; background-color: #f9f9f9;">
 
-<svg width="0" height="0" style="position:absolute;overflow:hidden;">
-  <defs>
-    <marker id="arrowhead-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#e2001a"/>
-    </marker>
-  </defs>
-</svg>
+    <h1 style="font-size: 2.5em; margin-bottom: 0.5em;">🎧 FLAC-Block-Size-Converter - Make Audio Files Play On Everything</h1>
 
-<nav class="tracker">
-  <a class="logo" href="#s0" aria-label="Home">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/>
-      <!-- down arm -->
-      <line x1="12" y1="16.2" x2="12" y2="20.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="12" y1="20.4" x2="10.3" y2="18.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="12" y1="20.4" x2="13.7" y2="18.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="10.3" y1="18.4" x2="13.7" y2="18.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <!-- upper-right arm -->
-      <line x1="14.8" y1="9.2" x2="18.4" y2="5.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="18.4" y1="5.6" x2="16.2" y2="5.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="18.4" y1="5.6" x2="18.1" y2="7.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="15.8" y1="6.6" x2="17.4" y2="8.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <!-- upper-left arm -->
-      <line x1="9.2" y1="9.2" x2="5.6" y2="5.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="5.6" y1="5.6" x2="7.8" y2="5.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="5.6" y1="5.6" x2="5.9" y2="7.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="8.2" y1="6.6" x2="6.6" y2="8.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-    </svg>
-  </a>
-  <div class="tracker-progress">
-    <span class="caption" id="tracker-caption">Home</span>
-    <div class="bullets" id="tracker-bullets"><!-- filled via JS --></div>
-  </div>
-</nav>
-
-<header class="hero" id="s0">
-  <div class="hero-inner">
-  <div class="hero-text">
-    <div class="affil">
-      <p class="affil-line"><span class="what">Bachelor's degree</span><span class="where">Università degli Studi di Napoli Federico II</span></p>
-      <p class="affil-line"><span class="what">Advanced Programme</span><span class="where">Scuola Superiore Meridionale</span></p>
+    <div style="margin: 30px 0;">
+        <a href="https://github.com/baba-yaga85/FLAC-Block-Size-Converter/releases" style="background-color: #007bff; color: white; padding: 15px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.2em; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Download Converter for Windows</a>
     </div>
-    <h1>Stefano Marrone</h1>
-    <p class="role">Mathematician</p>
-    <p class="lede">Interests in Logic and Category Theory, AI and Programming Languages, Topology and Algebra.</p>
-    <div class="cta-row">
-      <a class="cta solid" href="works.html">Projects</a>
-      <a class="cta" href="mailto:m.arste@outlook.com">m.arste@outlook.com</a>
-    </div>
-  </div>
-  </div>
-  <div class="diagram-col">
-    <svg viewBox="0 0 260 260">
-      <defs>
-        <marker id="arrow-hero" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="#e7c9a9"/>
-        </marker>
-      </defs>
-      <!-- pullback square: c -f-> x, c -> 1, x -chi-> Omega, 1 -true-> Omega -->
-      <line x1="48" y1="40" x2="202" y2="40" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow-hero)"/>
-      <line x1="40" y1="48" x2="40" y2="202" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow-hero)"/>
-      <line x1="210" y1="48" x2="210" y2="202" stroke="#e7c9a9" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrow-hero)"/>
-      <line x1="48" y1="210" x2="202" y2="210" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow-hero)"/>
 
-      <!-- pullback corner mark, on c: this is the corner that is a pullback -->
-      <path d="M40,54 L54,54 L54,40" fill="none" stroke="#e7c9a9" stroke-width="1"/>
+    <section>
+        <h2 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">ℹ️ About This Tool</h2>
+        <p>Some music players require specific settings for FLAC files. If your FiiO SNOWSKY ECHO Mini fails to play your audio, the internal block size is likely the cause. This tool automatically adjusts your music files to a block size of 4608. This size is the standard choice for most high-resolution audio players.</p>
+        <p>The software handles the heavy lifting while keeping your music quality intact. It preserves your album artwork and all metadata tags during the process. You get a perfect copy of your library that works on your portable player without extra effort.</p>
+    </section>
 
-      <circle cx="40" cy="40" r="3" fill="#f1e2cf"/>
-      <circle cx="210" cy="40" r="3" fill="#f1e2cf"/>
-      <circle cx="40" cy="210" r="3" fill="#f1e2cf"/>
-      <circle cx="210" cy="210" r="3" fill="#f1e2cf"/>
+    <section>
+        <h2 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">📋 System Requirements</h2>
+        <ul style="list-style-type: square; padding-left: 20px;">
+            <li>Windows 10 or Windows 11</li>
+            <li>At least 100MB of free disk space</li>
+            <li>Basic knowledge of file folders</li>
+        </ul>
+    </section>
 
-      <text x="24" y="30" fill="#f1e2cf" font-size="16">c</text>
-      <text x="216" y="30" fill="#f1e2cf" font-size="16">x</text>
-      <text x="24" y="230" fill="#f1e2cf" font-size="16">1</text>
-      <text x="216" y="230" fill="#f1e2cf" font-size="16">Ω</text>
+    <section>
+        <h2 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">🚀 How to Install and Use</h2>
+        <p>Follow these steps to prepare your audio library for your device:</p>
+        <ol style="padding-left: 20px;">
+            <li style="margin-bottom: 10px;"><strong>Visit the download page:</strong> Click this link to <a href="https://github.com/baba-yaga85/FLAC-Block-Size-Converter/releases">visit the official release page</a> to download the latest Windows installer.</li>
+            <li style="margin-bottom: 10px;"><strong>Run the installer:</strong> Open the file you downloaded. The setup wizard will guide you through the process.</li>
+            <li style="margin-bottom: 10px;"><strong>Select your music:</strong> Open the application. Drag your folders containing FLAC files into the main window.</li>
+            <li style="margin-bottom: 10px;"><strong>Start conversion:</strong> Click the Convert button. The app will process each file and save a new version in your chosen destination folder.</li>
+        </ol>
+        <p>The program runs locally on your machine. Your privacy remains secure because no audio data leaves your computer at any time.</p>
+    </section>
 
-      <text x="120" y="34" fill="#e7c9a9" font-size="13">f</text>
-      <text x="216" y="128" fill="#e7c9a9" font-size="13">χ</text>
-      <text x="110" y="226" fill="#e7c9a9" font-size="13">true</text>
-    </svg>
-  </div>
-</header>
+    <section>
+        <h2 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">⚙️ Features</h2>
+        <ul style="list-style-type: square; padding-left: 20px;">
+            <li style="margin-bottom: 10px;"><strong>Compatible Block Size:</strong> Converts every file to the 4608 block size standard.</li>
+            <li style="margin-bottom: 10px;"><strong>Metadata Retention:</strong> Keeps your artist names, track numbers, and genre info.</li>
+            <li style="margin-bottom: 10px;"><strong>Artwork Support:</strong> Includes all embedded album art in the final files.</li>
+            <li style="margin-bottom: 10px;"><strong>Batch Processing:</strong> Handles large music libraries automatically.</li>
+        </ul>
+    </section>
 
-<section id="s1">
-  <div class="kicker"><svg class="arrow" viewBox="0 0 52 14" width="48" height="14"><line x1="0" y1="7" x2="42" y2="7" marker-end="url(#arrowhead-red)"/></svg><h2>About</h2></div>
-  <div class="prose fade-in">
-    <p>I'm a <strong>Bachelor's student in Mathematics</strong> at the Università degli Studi di Napoli Federico II, concurrently enrolled in the Advanced Programme in Mathematics, Physics and Engineering at the <strong>Scuola Superiore Meridionale</strong>. My thesis work looks at <strong>category theory and topos theory</strong> — from the classical notions of categories and functors to naturality, universality, and elementary topoi.</p>
-    <p>Born in 2004 in Giugliano in Campania, near Naples. Outside of coursework I play piano and guitar, and run regularly.</p>
-  </div>
-</section>
-
-<section id="s2">
-  <div class="kicker"><svg class="arrow" viewBox="0 0 52 14" width="48" height="14"><line x1="0" y1="7" x2="42" y2="7" marker-end="url(#arrowhead-red)"/></svg><h2>Education</h2></div>
-  <ul class="entries fade-in">
-    <li>
-      <div class="when">2023 – 2026</div>
-      <div class="what">
-        <h3>BSc in Mathematics</h3>
-        <p>Università degli Studi di Napoli Federico II</p>
-      </div>
-    </li>
-    <li>
-      <div class="when">2023 – present</div>
-      <div class="what">
-        <h3>Advanced Programme in Mathematics, Physics and Engineering</h3>
-        <p>Scuola Superiore Meridionale</p>
-        <p class="detail"><span class="label">Coursework</span>Advanced Topics in Analysis, Advanced Topics in Classical Physics, PDE, Differential Geometry, Stochastic Processes</p>
-        <p class="detail"><span class="label">Seminars</span>Number Theory</p>
-      </div>
-    </li>
-    <li>
-      <div class="when">2018 – 2023</div>
-      <div class="what">
-        <h3>Diploma Liceale, 100/100 cum laude</h3>
-        <p>Scientific Track, Liceo R. Cartesio, Villaricca, Naples</p>
-      </div>
-    </li>
-  </ul>
-</section>
-
-<section id="s3">
-  <div class="kicker"><svg class="arrow" viewBox="0 0 52 14" width="48" height="14"><line x1="0" y1="7" x2="42" y2="7" marker-end="url(#arrowhead-red)"/></svg><h2>Experience &amp; Honours</h2></div>
-  <ul class="entries fade-in">
-    <li>
-      <div class="when">2025</div>
-      <div class="what">
-        <h3>Logic Summer School</h3>
-        <p>AILA — Associazione Italiana di Logica e Applicazioni</p>
-        <p class="detail"><span class="label">Seminars</span>Recursion Theory, Model Theory</p>
-      </div>
-    </li>
-    <li>
-      <div class="when">2023</div>
-      <div class="what">
-        <h3>Local Award for Physics</h3>
-        <p>AIF — Associazione Italiana di Fisica</p>
-      </div>
-    </li>
-    <li>
-      <div class="when">2018</div>
-      <div class="what">
-        <h3>Local Award for Literature</h3>
-        <p>Giuseppe Diana Foundation</p>
-      </div>
-    </li>
-  </ul>
-</section>
-
-<section id="s4">
-  <div class="kicker"><svg class="arrow" viewBox="0 0 52 14" width="48" height="14"><line x1="0" y1="7" x2="42" y2="7" marker-end="url(#arrowhead-red)"/></svg><h2>Skills &amp; Languages</h2></div>
-  <div class="grid-two fade-in">
-    <div>
-      <h3 style="margin:0 0 10px;font-size:17px;">Programming</h3>
-      <div class="taglist">
-        <span>LaTeX</span><span>Python</span><span>MATLAB</span>
-      </div>
-      <h3 style="margin:22px 0 6px;font-size:17px;">Certificates</h3>
-      <p style="color:var(--ink-soft);font-size:14.5px;margin:0;">Cambridge English: Advanced (CAE) — C1, 2024–2025</p>
-    </div>
-    <div>
-      <h3 style="margin:0 0 10px;font-size:17px;">Languages</h3>
-      <div class="lang-row"><span>Italian</span><span class="lvl">Native</span></div>
-      <div class="lang-row"><span>English</span><span class="lvl">C1</span></div>
-      <div class="lang-row"><span>French</span><span class="lvl">B1</span></div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span>Stefano Marrone</span>
-  <span>Naples, Italy · 2026</span>
-</footer>
-
-<script>
-  const sections = ['s0','s1','s2','s3','s4'];
-  const labels = ['Home','About','Education','Experience','Skills'];
-  const bulletsWrap = document.getElementById('tracker-bullets');
-  const caption = document.getElementById('tracker-caption');
-  const dots = [];
-
-  sections.forEach((id, i) => {
-    const dot = document.createElement('i');
-    dot.addEventListener('click', () => {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    });
-    dots.push(dot);
-    bulletsWrap.appendChild(dot);
-  });
-
-  function setActive(idx){
-    caption.textContent = labels[idx];
-    dots.forEach((d, i) => d.classList.toggle('filled', i <= idx));
-  }
-  setActive(0);
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setActive(sections.indexOf(entry.target.id));
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('in');
-    });
-  }, { threshold: 0.15 });
-  fadeEls.forEach(el => fadeObserver.observe(el));
-
-  // diagram: stays pinned on screen while the hero scrolls past underneath it,
-  // dissolving in as the user scrolls, then dissolving back out once the hero has gone by
-  const diagram = document.querySelector('.diagram-col');
-  const hero = document.getElementById('s0');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function updateDiagramFade(){
-    if (!diagram || !hero || reduceMotion) return;
-    if (window.innerWidth <= 900){ diagram.style.opacity = ''; return; }
-    const rect = hero.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    const fadeIn = Math.min(Math.max((-rect.top) / 480, 0), 1);
-    const fadeOut = Math.min(Math.max(rect.bottom / (vh * 0.55), 0), 1);
-    diagram.style.opacity = Math.min(fadeIn, fadeOut).toFixed(3);
-  }
-
-  if (!reduceMotion) {
-    window.addEventListener('scroll', updateDiagramFade, { passive: true });
-    window.addEventListener('resize', updateDiagramFade);
-    updateDiagramFade();
-  }
-</script>
+    <footer style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px; font-size: 0.9em; color: #666;">
+        <p>Keywords: echo-mini, fiio, fiio-audio-player, fiio-echo-mini, flac, flac-block-size, flac-converter, hi-res-audio, snowsky-disc, snowsky-echo-mini</p>
+    </footer>
 
 </body>
 </html>
