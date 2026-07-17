@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lavori — Stefano Marrone</title>
+<meta name="description" content="Tesi, progetti e scritti di Stefano Marrone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#e2001a;
+    --maroon-dark:#7a000f;
+    --paper:#f6f0e3;
+    --paper-dim:#efe4cd;
+    --ink:#241f1a;
+    --ink-soft:#5a5147;
+    --gold:#a9814a;
+    --line:#ddcda9;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'EB Garamond', serif; font-weight:600; letter-spacing:0.01em; }
+  a{ color:inherit; }
+
+  .tracker{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px;
+    background:rgba(246,240,227,0.86);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .tracker .logo{ display:flex; align-items:center; color:var(--maroon); }
+  .tracker .logo svg{ width:22px; height:22px; display:block; }
+  .tracker .back{
+    font-family:'EB Garamond',serif; font-style:italic; font-size:14px;
+    color:var(--ink-soft); text-decoration:none;
+  }
+  .tracker .back:hover{ color:var(--maroon); }
+
+  .page-head{
+    background:linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color:var(--paper);
+    padding:150px 28px 70px;
+  }
+  .page-head-inner{ max-width:760px; margin:0 auto; }
+  .page-head .eyebrow{
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:#e7c9a9; margin:0 0 12px;
+  }
+  .page-head h1{ font-size:clamp(34px,6vw,52px); margin:0 0 10px; }
+  .page-head p{ font-size:16px; line-height:1.7; max-width:56ch; color:#efe1cd; margin:0; }
+
+  main{ max-width:760px; margin:0 auto; padding:60px 28px 100px; }
+
+  .work{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:24px;
+    padding:28px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .work:last-child{ border-bottom:none; }
+  .work .when{
+    font-family:'EB Garamond',serif; font-style:italic; color:var(--maroon); font-size:14px; white-space:nowrap;
+  }
+  .work h2{ font-size:21px; margin:0 0 8px; }
+  .work p{ margin:0 0 6px; color:var(--ink-soft); line-height:1.7; font-size:15px; }
+  .work .tag{
+    display:inline-block; font-size:12px; color:var(--ink-soft);
+    border:1px solid var(--line); border-radius:2px; padding:3px 9px; margin-top:6px;
+  }
+
+  .empty-note{
+    margin-top:20px;
+    padding:20px;
+    border:1px dashed var(--line);
+    border-radius:4px;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.7;
+  }
+
+  footer{
+    max-width:760px; margin:0 auto; padding:20px 28px 80px;
+    display:flex; justify-content:space-between; align-items:center;
+    color:var(--ink-soft); font-size:12.5px; letter-spacing:0.04em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="tracker">
+  <a class="logo" href="index.html" aria-label="Home">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="8.5" y1="8.5" x2="11.5" y2="5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="15.5" y1="8.5" x2="12.5" y2="5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="4" cy="4" r="1.6" fill="currentColor"/>
+      <circle cx="20" cy="4" r="1.6" fill="currentColor"/>
+    </svg>
+  </a>
+  <a class="back" href="index.html">← Home</a>
+</nav>
+
+<header class="page-head">
+  <div class="page-head-inner">
+    <p class="eyebrow">Stefano Marrone</p>
+    <h1>Lavori</h1>
+    <p>Tesi, seminari e progetti a cui ho lavorato durante il mio percorso in Matematica.</p>
+  </div>
+</header>
+
+<main>
+  <div class="work">
+    <div class="when">2025/2026</div>
+    <div>
+      <h2>Teoria delle Categorie e Teoria dei Topoi</h2>
+      <p>Tesi di laurea triennale, Università degli Studi di Napoli Federico II. Relatore: Prof. Giovanni Cutolo.</p>
+      <p>Un percorso attraverso i concetti classici della teoria delle categorie — categorie, funtori, naturalità e universalità — fino a una digressione sui tòpoi elementari, a partire dalla domanda di Eilenberg e Mac Lane sull'isomorfismo naturale tra uno spazio vettoriale e il suo doppio duale.</p>
+      <span class="tag">Matematica pura · Fondamenti</span>
+    </div>
+  </div>
+
+  <div class="work">
+    <div class="when">2025</div>
+    <div>
+      <h2>Logic Summer School</h2>
+      <p>AILA — Associazione Italiana di Logica e Applicazioni. Seminari su Teoria della Ricorsione e Teoria dei Modelli.</p>
+      <span class="tag">Logica matematica</span>
+    </div>
+  </div>
+
+  <div class="empty-note">
+    Altri lavori, appunti e seminari verranno aggiunti qui man mano che il percorso prosegue.
+  </div>
+</main>
+
+<footer>
+  <span>Stefano Marrone</span>
+  <span>Naples, Italy · 2026</span>
+</footer>
+
+</body>
+</html>
