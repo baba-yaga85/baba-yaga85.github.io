@@ -1,16 +1,433 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nome Cognome</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stefano Marrone — Mathematician</title>
+<meta name="description" content="Stefano Marrone — Bachelor's student in Mathematics, Università Federico II di Napoli & Scuola Superiore Meridionale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#7d1a2a;
+    --maroon-dark:#4a0e18;
+    --paper:#f6f0e3;
+    --paper-dim:#efe4cd;
+    --ink:#241f1a;
+    --ink-soft:#5a5147;
+    --gold:#a9814a;
+    --line:#ddcda9;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'EB Garamond', serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit;}
+
+  /* ---------- fixed section index, echoes the "N/18 · Section ••◦◦◦◦" footer of the thesis slides ---------- */
+  .tracker{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 28px;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    background:rgba(246,240,227,0.86);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .tracker .mark{font-family:'EB Garamond',serif; font-style:italic; text-transform:none; font-size:15px;}
+  .tracker .dots{display:flex; gap:14px;}
+  .tracker .dot-group{display:flex; align-items:center; gap:5px; cursor:pointer; opacity:0.45; transition:opacity .25s;}
+  .tracker .dot-group.active{opacity:1;}
+  .tracker .dot-group span.label{display:none;}
+  .tracker .bullets{display:flex; gap:3px;}
+  .tracker .bullets i{width:5px; height:5px; border-radius:50%; background:var(--ink-soft); display:inline-block;}
+  .tracker .dot-group.active .bullets i.filled{background:var(--maroon);}
+  @media (min-width:720px){ .tracker .dot-group span.label{display:inline;} }
+
+  section{
+    max-width:760px;
+    margin:0 auto;
+    padding:120px 28px 40px;
+  }
+  section + section{ padding-top:96px; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color:var(--paper);
+    max-width:none;
+    padding:170px 28px 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:760px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
+  }
+  .hero .eyebrow{
+    font-size:13px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:#e7c9a9;
+    margin:0 0 18px;
+  }
+  .hero h1{
+    font-size:clamp(40px,7vw,64px);
+    margin:0 0 6px;
+    line-height:1.05;
+  }
+  .hero .role{
+    font-family:'EB Garamond',serif;
+    font-style:italic;
+    font-size:clamp(20px,3vw,26px);
+    color:#f1e2cf;
+    margin:0 0 30px;
+  }
+  .hero p.lede{
+    font-size:16px;
+    line-height:1.7;
+    max-width:52ch;
+    color:#efe1cd;
+  }
+  .hero .cta-row{
+    margin-top:36px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .hero .cta{
+    display:inline-block;
+    padding:11px 20px;
+    border:1px solid #e7c9a9;
+    border-radius:2px;
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-decoration:none;
+    color:var(--paper);
+    transition:background .2s, color .2s;
+  }
+  .hero .cta.solid{ background:var(--paper); color:var(--maroon-dark); border-color:var(--paper); }
+  .hero .cta:hover{ background:#e7c9a9; color:var(--maroon-dark); }
+
+  /* signature: a commutative square, drawn from the objects/morphisms of the thesis itself */
+  .diagram{
+    position:absolute;
+    right:-40px; top:50%;
+    transform:translateY(-50%);
+    width:380px;
+    opacity:0.9;
+  }
+  @media (max-width:900px){ .diagram{ display:none; } }
+  .diagram svg text{ font-family:'EB Garamond',serif; font-style:italic; }
+
+  /* ---------- section chrome ---------- */
+  .kicker{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:34px;
+  }
+  .kicker .num{
+    font-family:'EB Garamond',serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:15px;
+  }
+  .kicker h2{
+    font-size:28px;
+    margin:0;
+  }
+  .kicker::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+    margin-left:6px;
+  }
+
+  .prose p{ line-height:1.75; color:var(--ink-soft); font-size:16px; }
+  .prose strong{ color:var(--ink); font-weight:600; }
+
+  /* timeline-ish list, styled like the categorical diagrams: node -> node */
+  .entries{ list-style:none; margin:0; padding:0; }
+  .entries li{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:18px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .entries li:last-child{ border-bottom:none; }
+  .entries .when{
+    font-family:'EB Garamond',serif;
+    font-style:italic;
+    color:var(--maroon);
+    font-size:14px;
+    white-space:nowrap;
+  }
+  .entries .what h3{ margin:0 0 4px; font-size:18px; font-weight:600; }
+  .entries .what p{ margin:0; color:var(--ink-soft); font-size:14.5px; line-height:1.6; }
+
+  .grid-two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+  @media (max-width:640px){ .grid-two{ grid-template-columns:1fr; } }
+
+  .taglist{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .taglist span{
+    font-size:12.5px;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    color:var(--ink-soft);
+    background:var(--paper-dim);
+  }
+
+  .lang-row{ display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px dashed var(--line); font-size:14.5px; }
+  .lang-row:last-child{ border-bottom:none; }
+  .lang-row .lvl{ color:var(--gold); font-family:'EB Garamond',serif; font-style:italic; }
+
+  footer{
+    max-width:760px;
+    margin:0 auto;
+    padding:20px 28px 80px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:var(--ink-soft);
+    font-size:12.5px;
+    letter-spacing:0.04em;
+  }
+
+  .fade-in{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .fade-in.in{ opacity:1; transform:translateY(0); }
+
+  ::selection{ background:var(--gold); color:#fff; }
+</style>
 </head>
 <body>
-  <h1>Stefano Marrone</h1>
-  <p>Mathematician</p>
-  <p>This website is under construction.</p>
 
-  <h2>Contact</h2>
-  <p>Email: marrste19@gmail.com</p>
+<nav class="tracker">
+  <span class="mark">S. Marrone</span>
+  <div class="dots" id="tracker-dots">
+    <!-- filled via JS -->
+  </div>
+</nav>
+
+<header class="hero" id="s0">
+  <div class="hero-inner">
+    <p class="eyebrow">Università Federico II di Napoli · Scuola Superiore Meridionale</p>
+    <h1>Stefano Marrone</h1>
+    <p class="role">Bachelor's student in Mathematics</p>
+    <p class="lede">Working towards an academic career in pure mathematics, with a growing interest in category theory, topology, algebra, and mathematical logic.</p>
+    <div class="cta-row">
+      <a class="cta solid" href="#contact">Get in touch</a>
+      <a class="cta" href="mailto:m.arste@outlook.com">m.arste@outlook.com</a>
+    </div>
+  </div>
+  <div class="diagram">
+    <svg viewBox="0 0 380 260" width="380" height="260">
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#e7c9a9"/>
+        </marker>
+      </defs>
+      <!-- commutative square: a -> b -> d, a -> c -> d -->
+      <line x1="60" y1="50" x2="270" y2="50" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="60" y1="60" x2="60" y2="200" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="280" y1="60" x2="280" y2="200" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="60" y1="210" x2="270" y2="210" stroke="#e7c9a9" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <line x1="70" y1="60" x2="270" y2="200" stroke="#e7c9a9" stroke-width="0.8" stroke-dasharray="3 4" marker-end="url(#arrow)"/>
+
+      <circle cx="50" cy="45" r="3" fill="#f1e2cf"/>
+      <circle cx="280" cy="45" r="3" fill="#f1e2cf"/>
+      <circle cx="50" cy="210" r="3" fill="#f1e2cf"/>
+      <circle cx="280" cy="210" r="3" fill="#f1e2cf"/>
+
+      <text x="38" y="35" fill="#f1e2cf" font-size="16">a</text>
+      <text x="286" y="35" fill="#f1e2cf" font-size="16">b</text>
+      <text x="38" y="228" fill="#f1e2cf" font-size="16">c</text>
+      <text x="286" y="228" fill="#f1e2cf" font-size="16">d</text>
+
+      <text x="150" y="42" fill="#e7c9a9" font-size="13">f</text>
+      <text x="30" y="130" fill="#e7c9a9" font-size="13">g</text>
+      <text x="290" y="130" fill="#e7c9a9" font-size="13">h</text>
+      <text x="150" y="228" fill="#e7c9a9" font-size="13">k</text>
+    </svg>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="kicker"><span class="num">01</span><h2>About</h2></div>
+  <div class="prose fade-in">
+    <p>I'm a <strong>Bachelor's student in Mathematics</strong> at the Università degli Studi di Napoli Federico II, concurrently enrolled in the Advanced Programme in Mathematics, Physics and Engineering at the <strong>Scuola Superiore Meridionale</strong>. My thesis work looks at <strong>category theory and topos theory</strong> — from the classical notions of categories and functors to naturality, universality, and elementary topoi.</p>
+    <p>Born in 2004 in Giugliano in Campania, near Naples. Outside of coursework I play piano and guitar, and volunteer occasionally in local community events.</p>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="kicker"><span class="num">02</span><h2>Education</h2></div>
+  <ul class="entries fade-in">
+    <li>
+      <div class="when">2023 – present</div>
+      <div class="what">
+        <h3>BSc in Mathematics</h3>
+        <p>Università degli Studi di Napoli Federico II</p>
+      </div>
+    </li>
+    <li>
+      <div class="when">2023 – present</div>
+      <div class="what">
+        <h3>Advanced Programme in Mathematics, Physics and Engineering</h3>
+        <p>Scuola Superiore Meridionale — coursework in Advanced Topics in Analysis, Advanced Topics in Classical Physics, PDE, Differential Geometry; seminars in Number Theory.</p>
+      </div>
+    </li>
+    <li>
+      <div class="when">2018 – 2023</div>
+      <div class="what">
+        <h3>Diploma Liceale, 100/100 cum laude</h3>
+        <p>Scientific Track, Liceo R. Cartesio, Villaricca, Naples</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section id="s3">
+  <div class="kicker"><span class="num">03</span><h2>Experience &amp; Honours</h2></div>
+  <ul class="entries fade-in">
+    <li>
+      <div class="when">2025</div>
+      <div class="what">
+        <h3>Logic Summer School</h3>
+        <p>AILA — Associazione Italiana di Logica e Applicazioni. Seminars in Recursion Theory and Model Theory.</p>
+      </div>
+    </li>
+    <li>
+      <div class="when">2023</div>
+      <div class="what">
+        <h3>Local Award for Physics</h3>
+        <p>AIF — Associazione Italiana di Fisica</p>
+      </div>
+    </li>
+    <li>
+      <div class="when">2018</div>
+      <div class="what">
+        <h3>Local Award for Literature</h3>
+        <p>Giuseppe Diana Foundation</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section id="s4">
+  <div class="kicker"><span class="num">04</span><h2>Skills &amp; Languages</h2></div>
+  <div class="grid-two fade-in">
+    <div>
+      <h3 style="margin:0 0 10px;font-size:17px;">Technical</h3>
+      <div class="taglist">
+        <span>LaTeX</span><span>Python</span><span>MATLAB</span>
+      </div>
+      <h3 style="margin:22px 0 6px;font-size:17px;">Certificates</h3>
+      <p style="color:var(--ink-soft);font-size:14.5px;margin:0;">Cambridge English: Advanced (CAE) — C1, 2024–2025</p>
+    </div>
+    <div>
+      <h3 style="margin:0 0 10px;font-size:17px;">Languages</h3>
+      <div class="lang-row"><span>Italian</span><span class="lvl">Native</span></div>
+      <div class="lang-row"><span>English</span><span class="lvl">C1</span></div>
+      <div class="lang-row"><span>French</span><span class="lvl">B1</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="kicker"><span class="num">05</span><h2>Contact</h2></div>
+  <div class="prose fade-in">
+    <p>Based in <strong>Naples, Italy</strong>. Reach me by email or phone:</p>
+    <p>Email: <a href="mailto:m.arste@outlook.com">m.arste@outlook.com</a><br>
+    Mobile: +39 333–792–9852</p>
+  </div>
+</section>
+
+<footer>
+  <span>Stefano Marrone</span>
+  <span>Naples, Italy · 2026</span>
+</footer>
+
+<script>
+  const sections = ['s0','s1','s2','s3','s4','contact'];
+  const labels = ['Home','About','Education','Experience','Skills','Contact'];
+  const dotsWrap = document.getElementById('tracker-dots');
+
+  sections.forEach((id, i) => {
+    const group = document.createElement('a');
+    group.href = '#' + id;
+    group.className = 'dot-group';
+    group.dataset.id = id;
+    group.style.textDecoration = 'none';
+    group.style.color = 'inherit';
+
+    const bullets = document.createElement('span');
+    bullets.className = 'bullets';
+    sections.forEach((_, j) => {
+      const dot = document.createElement('i');
+      if (j <= i) dot.classList.add('filled');
+      bullets.appendChild(dot);
+    });
+
+    const label = document.createElement('span');
+    label.className = 'label';
+    label.textContent = labels[i];
+
+    group.appendChild(bullets);
+    group.appendChild(label);
+    dotsWrap.appendChild(group);
+  });
+
+  const groups = document.querySelectorAll('.dot-group');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target.id);
+        groups.forEach((g, i) => g.classList.toggle('active', i === idx));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.15 });
+  fadeEls.forEach(el => fadeObserver.observe(el));
+</script>
+
 </body>
 </html>
